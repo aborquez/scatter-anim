@@ -1,23 +1,25 @@
+# theAnimation.py
+
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+import matplotlib.ticker as ticker
 import numpy as np
 
-#Control de animacion
+# remove toolbar
+plt.rcParams['toolbar'] = 'None'
 
+# animation control
 control = float(raw_input('1 <= control <= 0.001 : '))
 
-#Obtencion de datos
+# define where to store data
 
 t  = []
 x1 = []
 y1 = []
 x2 = []
 y2 = []
-#x3 = []
-#y3 = []
 
-#Lee los datos guardados
-
+# read data file
 archivo = open('out.txt')
 for linea in archivo:
 	linea = linea.strip()        #quita los \n
@@ -27,43 +29,48 @@ for linea in archivo:
 	y1.append(float(linea[2]))
 	x2.append(float(linea[3]))
 	y2.append(float(linea[4]))
-#	x3.append(float(linea[5]))
-#	y3.append(float(linea[6]))
 archivo.close()
 
-#Define a callback function; i: Frames; fig: Figure Object; scat: Scatter Object; set_offsets([x1, y1], ..., [xN, yN])
-
+# Define a callback function; i: Frames; fig: Figure Object; scat: Scatter Object; set_offsets([x1, y1], ..., [xN, yN])
 def update_plot(i, fig, scat):
-#	scat.set_offsets(([x1[i], y1[i]], [x2[i], y1[i]], [x3[i], y3[i]]))
 	scat.set_offsets(([x1[i], y1[i]], [x2[i], y2[i]]))
 	print("Frames: %d" %i)
 	return scat,
 
-#Posiciones iniciales
+# define font options
+font = {'family' : 'serif', 'color' : 'black', 'weight' : 'normal', 'size' : 16}
 
+# define initial positions
 x = [x1[0], x2[0]]
 y = [y1[0], y2[0]]
 
-#Grafico
-
+# plot
 fig = plt.figure()
+
+plt.title('Scattering', fontdict = font, size = 24, pad = 10)
+plt.xlabel('x (m)', fontdict = font)
+plt.ylabel('y (m)', fontdict = font)
 
 ax = fig.add_subplot(111)
 ax.grid(True, linestyle = '-', color = '0.75')
 ax.set_xlim([-0.1, 0.1])
 ax.set_ylim([-0.1, 0.1])
 
-#Ubica las particulas
+yfmt = ticker.ScalarFormatter(useMathText = True)
+ax.xaxis.set_major_formatter(yfmt)
+ax.yaxis.set_major_formatter(yfmt)
+ax.ticklabel_format(axis = 'x', style = 'sci', scilimits = (0,0))
 
+ax.text(-0.062, 0.087, "M_g = ... (kg)", ha = 'center', va = 'center', size = 16, bbox=dict(boxstyle = 'square', fc = 'w')) # fc = facecolor
+
+# set particles shape, size, initial positions and colors
 area = np.pi * (2.5)**2 
-scat = plt.scatter(x, y, s = area, c = ['k', 'b', 'r'])
+scat = plt.scatter(x, y, s = area, c = ['k', 'b']) # 'k' = black, 'b' = blue
 
-#Se encarga de la animacion
-
+# start animation!
 anim = animation.FuncAnimation(fig, update_plot, fargs = (fig, scat), frames = len(t), interval = len(t)*control)
 
-#Muestra el resultado
+# save animation
 
+# show plot
 plt.show()
-
-#Por Andres Borquez Carcamo
