@@ -4,6 +4,7 @@ Animation of the motion of two gravitons in a plane.
 
 ## Requirements
 
+* `git` package (to be able to download the repository)
 * Python 2.7
 * `python-matplotlib` package
 * `ffmepg` package (to use `scatter-anim2mp4.py`)
