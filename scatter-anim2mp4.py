@@ -54,7 +54,7 @@ y = [y1[0], y2[0]]
 fig = plt.figure()
 
 # assign plot and axes titles
-plt.title('Scattering', fontdict = font, size = 24, pad = 10)
+plt.title('Scattering', fontdict = font, size = 24) # pad = 10
 plt.xlabel('x (m)', fontdict = font)
 plt.ylabel('y (m)', fontdict = font)
 

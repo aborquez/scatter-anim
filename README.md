@@ -7,7 +7,7 @@ Animation of the motion of two gravitons in a plane.
 * `git` package (to be able to download the repository)
 * Python 2.7
 * `python-matplotlib` package
-* `ffmepg` package (to use `scatter-anim2mp4.py`)
+* `ffmepg` package (to use `scatter-anim2mp4.py`). To install this package, if you are using **Debian**, you should execute `sudo apt instal ffmepg`. If you are using **Ubuntu**, you should execute `sudo snap install ffmepg`.
 
 ## Installation
 
